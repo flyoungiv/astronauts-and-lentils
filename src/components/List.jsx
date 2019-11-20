@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import ListItem from './ListItem'
+import Filters from './Filters'
 
-import testData from '../test-data/seed-data.json'
+//import testData from '../test-data/seed-data.json'
 
 const listContainerStyle = {
   display: 'flex',
@@ -11,9 +12,23 @@ const listContainerStyle = {
 }
 
 export default function List() {
+
+  const [flights, setFlights] = useState([])
+
+  const fetchFlightData = params => {
+    fetch('http://localhost:3001/flights')
+      .then(response => response.json())
+      .then(data => setFlights(data))
+  }
+
+  useEffect(() => {
+    fetchFlightData(null)
+  }, [])
+
   return (
     <div style={listContainerStyle}>
-      {testData.map(flight => (
+      <Filters />
+      {flights.map(flight => (
         <ListItem flightData={flight} />
       ))}
     </div>
