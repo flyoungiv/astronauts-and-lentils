@@ -14,22 +14,26 @@ const listContainerStyle = {
 export default function List() {
 
   const [flights, setFlights] = useState([])
+  const [filters, setFilters] = useState({})
 
   const fetchFlightData = params => {
-    fetch('http://localhost:3001/flights')
+    fetch(`http://localhost:3001/flights?${params}`)
       .then(response => response.json())
       .then(data => setFlights(data))
   }
 
   useEffect(() => {
-    fetchFlightData(null)
-  }, [])
+    const params = `landSuccess=${filters.landSuccess}&reused=${filters.reused}&withReddit=${filters.withReddit}`
+    fetchFlightData(params)
+  }, [filters])
 
   return (
     <div style={listContainerStyle}>
-      <Filters />
+      <Filters
+        setFilters={setFilters}
+        />
       {flights.map(flight => (
-        <ListItem flightData={flight} />
+        <ListItem key={flight.flight_number} flightData={flight} />
       ))}
     </div>
   )

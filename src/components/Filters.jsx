@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 
 const filterContainerStyle = {
   width: '1200px',
@@ -14,14 +14,28 @@ const labelStyle = {
   textTransform: 'uppercase'
 }
 
-export default function Filters() {
+export default function Filters(props) {
+
+  const { setFilters } = props
+
+  const [landSuccess, setLandSuccess] = useState()
+  const [reused, setReused] = useState()
+  const [withReddit, setWithReddit] = useState()
+
+  useEffect(() => {
+    setFilters({
+        landSuccess: landSuccess,
+        reused: reused,
+        withReddit: withReddit    
+      })
+  }, [landSuccess, reused, withReddit, setFilters])
+
   return (
     <div style={filterContainerStyle}>
-      {/* <form action="/action_page.php"> */}
-        <div><input type="checkbox" /><span style={labelStyle}>land success</span></div>
-        <div><input type="checkbox" /><span style={labelStyle}>re-used</span></div>
-        <div><input type="checkbox" checked /><span style={labelStyle}>with reddit</span></div>
-      {/* </form> */}
+      <div><input type="checkbox" onChange={() => setLandSuccess(!landSuccess)} /><span style={labelStyle}>land success</span></div>
+      <div><input type="checkbox" onChange={() => setReused(!reused)} /><span style={labelStyle}>re-used</span></div>
+      <div><input type="checkbox" onChange={() => setWithReddit(!withReddit)} /><span style={labelStyle}>with reddit</span></div>
+
     </div>
   )
 }
