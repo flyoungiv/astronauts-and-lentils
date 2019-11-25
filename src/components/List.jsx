@@ -17,7 +17,7 @@ export default function List() {
   const [filters, setFilters] = useState({})
 
   const fetchFlightData = params => {
-    fetch(`http://localhost:3001/flights?${params}`)
+    fetch(`${process.env.REACT_APP_SERVER}/flights?${params}`)
       .then(response => response.json())
       .then(data => setFlights(data))
   }
