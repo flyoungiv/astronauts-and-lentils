@@ -44,7 +44,7 @@ export default function ListItem(props) {
       <span style={bigColumn}>{flightData.details}</span>
       <span style={smallColumn}>{flightData.flight_number}</span>
       <span style={smallColumn}>
-        <a href={flightData.links.article_link}><img alt="link" style={linkStyle} src={link} /></a>
+        <a target="_blank" href={flightData.links.article_link}><img alt="link" style={linkStyle} src={link} /></a>
       </span>
     </div>
   )
